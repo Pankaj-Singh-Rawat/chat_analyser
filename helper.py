@@ -21,7 +21,7 @@ def fetch_stats(selected_user, df):
     words = df['messages'].astype(str).str.split().sum()
 
     # media
-    media_message = df[df['messages'] == '<Media omitted>\n'].shape[0]
+    media_message = df['messages'].str.contains('<Media omitted>', na=False).sum()
 
     # links
     links = df['messages'].apply(lambda x: extract.find_urls(str(x))).sum()
